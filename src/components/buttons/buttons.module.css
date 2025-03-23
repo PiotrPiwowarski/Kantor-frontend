@@ -1,0 +1,35 @@
+button {
+    font-size: 20px;
+}
+
+.acceptBtn {
+    background-color: transparent;
+    border: none;
+    color: white;
+    background-color: #9929bd;
+    padding: 10px 15px;
+    border-radius: 10px;
+}
+
+.acceptBtn:hover {
+    background-color: #9829bdbb;
+}
+
+.acceptBtn:active {
+    background-color: #9829bd6c;
+}
+
+.textBtn {
+    background-color: transparent;
+    border: none;
+    color: #9929bd;
+    font-size: 20px;
+}
+
+.textBtn:hover {
+    color: #9829bd98;
+}
+
+.textBtn:active {
+    color: #9829bd59;
+}
