@@ -37,7 +37,7 @@ export const LoginForm = ({ setActivePage }) => {
 
 	return (
 		<div className={styles.content}>
-			<h1>Logowanie</h1>
+			<h1>Logowanie.</h1>
 			{error && <p className={styles.error}>{error}</p>}
 			<label>
 				Podaj email
