@@ -1,5 +1,5 @@
-import styles from './buttons.module.css'
+import styles from './buttons.module.css';
 
-export const AcceptButton = ({label}) => <button className={styles.acceptBtn}>{label}</button>
+export const AcceptButton = ({label, onClick}) => <button className={styles.acceptBtn} onClick={onClick}>{label}</button>
 
-export const TextButton = ({label}) => <button className={styles.textBtn}>{label}</button>
+export const TextButton = ({label, onClick}) => <button className={styles.textBtn} onClick={onClick}>{label}</button>
