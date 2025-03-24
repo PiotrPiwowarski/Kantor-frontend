@@ -1,11 +1,10 @@
 import styles from './forms.module.css';
 import { AcceptButton, TextButton } from '../buttons/Button';
-import {useState} from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 export const LoginForm = ({ setActivePage }) => {
-
 	const navigate = useNavigate();
 
 	const [error, setError] = useState('');
@@ -13,29 +12,32 @@ export const LoginForm = ({ setActivePage }) => {
 	const [password, setPassword] = useState('');
 
 	const handleLoginBtn = async () => {
-		if(email === '' || password === '') {
+		if (email === '' || password === '') {
 			setError('Należy wypełnić wszystkie pola formularza');
 			return;
 		}
 
 		const loginDto = {
 			email,
-			password
-		}
+			password,
+		};
 
 		try {
-			const response = await axios.post('http://localhost:8080/api/accounts/login', loginDto);
+			const response = await axios.post(
+				'http://localhost:8080/api/accounts/login',
+				loginDto
+			);
 			localStorage.setItem('jwt', response.data.token);
-			localStorage.setItem('userId', response.data.accountId);
+			localStorage.setItem('accountId', response.data.accountId);
 			navigate('/dashboard');
-		} catch(e) {
+		} catch (e) {
 			setError('Błąd logowania');
 		}
-	}
+	};
 
 	return (
 		<div className={styles.content}>
-			<h1>Logowanie</h1>
+			<h1>Logowanie.</h1>
 			{error && <p className={styles.error}>{error}</p>}
 			<label>
 				Podaj email
@@ -60,7 +62,10 @@ export const LoginForm = ({ setActivePage }) => {
 					onClick={() => setActivePage('registration')}
 				/>
 			</p>
-			<AcceptButton label='Zaloguj się' onClick={handleLoginBtn} />
+			<AcceptButton
+				label='Zaloguj się'
+				onClick={handleLoginBtn}
+			/>
 		</div>
 	);
 };

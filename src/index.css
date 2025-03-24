@@ -4,8 +4,6 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
-	margin-top: 5px;
-	margin-bottom: 5px;
 }
 
 body {
@@ -16,7 +14,7 @@ html,
 body {
 	height: 100%;
 	font-size: 20px;
-	background-color: rgb(234, 233, 233);
+	background-color: rgb(245, 244, 244);
 }
 
 h1, h2, p {

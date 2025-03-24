@@ -1,5 +1,7 @@
 button {
     font-size: 20px;
+    padding: 0px 10px;
+    margin: 10px;
 }
 
 .acceptBtn {
@@ -32,4 +34,23 @@ button {
 
 .textBtn:active {
     color: #9829bd59;
+}
+
+.menuBtn {
+    background-color: transparent;
+    color: white;
+    border: none;
+}
+
+.menuBtn:hover {
+    text-decoration: underline;
+}
+
+.menuBtn:active {
+    color: lightgrey;
+}
+
+.iconBtn {
+    background-color: transparent;
+    border: none;
 }
