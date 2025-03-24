@@ -8,7 +8,7 @@ export const Home = () => {
 	const [activePage, setActivePage] = useState('login');
 
 	return (
-		<div className={styles.page}>
+		<div className={styles.home}>
 			<HomeBar />
 			{activePage === 'login' ? (
 				<LoginForm setActivePage={setActivePage} />

@@ -1,0 +1,35 @@
+.subpage {
+    margin-top: 170px;
+    min-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    margin-top: 30px;
+    width: 600px;
+    height: 600px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+}
+
+.error {
+    color: red;
+}
+
+.list {
+    width: 80%;
+    list-style: none;
+}
+
+.list li {
+    display: flex;
+    justify-content: space-between;
+}

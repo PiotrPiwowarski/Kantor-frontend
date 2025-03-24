@@ -6,11 +6,14 @@ import axios from 'axios';
 export const UserMenu = () => {
 	const navigate = useNavigate();
 
-	const handleMyAccountBtn = () => {};
+	const handleMyAccountBtn = () => {
+        
+    };
 
 	const handleLogoutBtn = async () => {
 		const jwt = localStorage.getItem('jwt');
         if(!jwt) {
+			localStorage.removeItem('accountId');
             navigate('/');
             return;
         }

@@ -3,7 +3,7 @@ import { ReactComponent as Logo } from '../../assets/Kantor.svg';
 
 export const HomeBar = () => {
 	return (
-		<div className={`${styles.bar} ${styles.home}`}>
+		<div className={styles.homeBar}>
 			<Logo className={styles.logo} />
 		</div>
 	);
