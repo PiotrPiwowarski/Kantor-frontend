@@ -7,4 +7,5 @@
     justify-content: space-around;
     align-items: center;
     background-color: #9929bd;
+    overflow: auto;
 }

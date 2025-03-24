@@ -1,9 +1,43 @@
 import styles from './menus.module.css';
+import { MenuButton } from '../buttons/Button';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export const UserMenu = () => {
-    return (
-        <div className={styles.menu}>
+	const navigate = useNavigate();
 
-        </div>
-    );
-}
+	const handleMyAccountBtn = () => {};
+
+	const handleLogoutBtn = async () => {
+		const jwt = localStorage.getItem('jwt');
+        if(!jwt) {
+            navigate('/');
+            return;
+        }
+		await axios.post(
+            'http://localhost:8080/api/accounts/logout',
+            {},
+            {
+                headers: {
+                    Authorization: `Bearer ${jwt}`,
+                },
+            }
+        );
+        localStorage.removeItem('accountId');
+        localStorage.removeItem('jwt');
+		navigate('/');
+	};
+
+	return (
+		<div className={styles.menu}>
+			<MenuButton
+				label='Moje konto'
+				onClick={handleMyAccountBtn}
+			/>
+			<MenuButton
+				label='Wyloguj się'
+				onClick={handleLogoutBtn}
+			/>
+		</div>
+	);
+};

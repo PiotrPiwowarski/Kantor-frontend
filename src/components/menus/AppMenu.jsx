@@ -4,9 +4,10 @@ import { MenuButton } from '../buttons/Button';
 export const AppMenu = () => {
     return (
         <div className={styles.menu}>
-            <MenuButton label='Dashboard' />
-            <MenuButton label='Dashboard' />
-            <MenuButton label='Dashboard' />
+            <MenuButton label='Mój portfel' />
+            <MenuButton label='Zakup waluty' />
+            <MenuButton label='Moje transakcje' />
+            <MenuButton label='Kursy walut' />
         </div>
     );
 }
