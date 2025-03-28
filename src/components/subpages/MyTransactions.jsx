@@ -79,8 +79,10 @@ export const MyTransactions = () => {
       <ApplicationBar />
       <div className="bg-gray-100 mt-[200px] py-6 px-4">
         <div className="flex flex-col items-center max-w-md mx-auto space-y-6">
-          <h1 className="text-2xl font-bold mb-4">Moje transakcje</h1>
           <div className="bg-white shadow-lg rounded-2xl p-6 w-full">
+            <h1 className="text-2xl font-bold mb-4 text-center">
+              Moje transakcje
+            </h1>
             {error && <div className="text-center text-red-500">{error}</div>}
             {loading ? (
               renderSkeletons()
