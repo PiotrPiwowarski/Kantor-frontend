@@ -1,56 +1,55 @@
 button {
-    font-size: 20px;
-    padding: 0px 10px;
-    margin: 10px;
+  font-size: 20px;
+  padding: 0px 10px;
 }
 
 .acceptBtn {
-    background-color: transparent;
-    border: none;
-    color: white;
-    background-color: #9929bd;
-    padding: 10px 15px;
-    border-radius: 10px;
+  background-color: transparent;
+  border: none;
+  color: white;
+  background-color: #9929bd;
+  padding: 10px 15px;
+  border-radius: 10px;
 }
 
 .acceptBtn:hover {
-    background-color: #9829bdbb;
+  background-color: #9829bdbb;
 }
 
 .acceptBtn:active {
-    background-color: #9829bd6c;
+  background-color: #9829bd6c;
 }
 
 .textBtn {
-    background-color: transparent;
-    border: none;
-    color: #9929bd;
-    font-size: 20px;
+  background-color: transparent;
+  border: none;
+  color: #9929bd;
+  font-size: 20px;
 }
 
 .textBtn:hover {
-    color: #9829bd98;
+  color: #9829bd98;
 }
 
 .textBtn:active {
-    color: #9829bd59;
+  color: #9829bd59;
 }
 
 .menuBtn {
-    background-color: transparent;
-    color: white;
-    border: none;
+  background-color: transparent;
+  color: white;
+  border: none;
 }
 
 .menuBtn:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .menuBtn:active {
-    color: lightgrey;
+  color: lightgrey;
 }
 
 .iconBtn {
-    background-color: transparent;
-    border: none;
+  background-color: transparent;
+  border: none;
 }
