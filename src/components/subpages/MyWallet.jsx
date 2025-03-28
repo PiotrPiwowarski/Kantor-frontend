@@ -1,7 +1,5 @@
 import api from "../../lib/axiosInterceptor";
 import { ApplicationBar } from "../bars/ApplicationBar";
-import styles from "./subpages.module.css";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
