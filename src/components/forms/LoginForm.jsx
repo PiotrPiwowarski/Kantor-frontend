@@ -2,6 +2,7 @@ import api from "../../lib/axiosInterceptor";
 import { AcceptButton, TextButton } from "../buttons/Button";
 import styles from "./forms.module.css";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 export const LoginForm = ({ setActivePage }) => {
@@ -14,6 +15,7 @@ export const LoginForm = ({ setActivePage }) => {
   const handleLoginBtn = async () => {
     if (email === "" || password === "") {
       setError("Należy wypełnić wszystkie pola formularza");
+      toast.error("Należy wypełnić wszystkie pola formularza");
       return;
     }
 
@@ -26,9 +28,11 @@ export const LoginForm = ({ setActivePage }) => {
       const response = await api.post("/accounts/login", loginDto);
       localStorage.setItem("jwt", response.data.token);
       localStorage.setItem("accountId", response.data.accountId);
+      toast.success("Zalogowano pomyślnie!");
       navigate("/dashboard");
     } catch (e) {
       setError("Błąd logowania");
+      toast.error("Błąd logowania");
     }
   };
 

@@ -1,8 +1,9 @@
-import styles from "./subpages.module.css";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import api from "../../lib/axiosInterceptor";
 import { ApplicationBar } from "../bars/ApplicationBar";
+import styles from "./subpages.module.css";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const MyWallet = () => {
   const navigate = useNavigate();
@@ -22,10 +23,9 @@ export const MyWallet = () => {
         navigate("/");
       }
       try {
-        const response = await axios.get(
-          `http://localhost:8080/api/currencies/${id}`,
-          { headers: { Authorization: `Bearer ${jwt}` } }
-        );
+        const response = await api.get(`/currencies/${id}`, {
+          headers: { Authorization: `Bearer ${jwt}` },
+        });
         setCurrencies(response.data);
       } catch (e) {
         setError("Błąd pobierania walut");

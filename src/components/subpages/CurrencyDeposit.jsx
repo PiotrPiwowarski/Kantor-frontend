@@ -1,3 +1,4 @@
+import api from "../../lib/axiosInterceptor";
 import { ApplicationBar } from "../bars/ApplicationBar";
 import { AcceptButton } from "../buttons/Button";
 import { CurrencySelector } from "../ui/CurrencySelect.jsx/CurrencySelector";
@@ -39,8 +40,8 @@ export const CurrencyDeposit = () => {
     }
 
     try {
-      await axios.post(
-        "http://localhost:8080/api/currencies/deposit",
+      await api.post(
+        "/currencies/deposit",
         {
           accountId: parseInt(id),
           currencyCode: selectedCurrency,
