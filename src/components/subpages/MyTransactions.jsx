@@ -47,7 +47,7 @@ export const MyTransactions = () => {
   return (
     <>
       <ApplicationBar />
-      <div className="flex flex-col items-center p-4">
+      <div className="flex flex-col flex-1 mt-[200px] justify-center items-center p-4">
         <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-md space-y-6">
           <h1 className="text-2xl font-bold text-center">Moje transakcje</h1>
           <div className="space-y-4">
