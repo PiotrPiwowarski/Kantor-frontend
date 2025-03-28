@@ -40,46 +40,94 @@ export const MyTransactions = () => {
     fetchTransactions();
   }, [navigate]);
 
-  if (loading)
-    return <div className="text-center p-4">Ładowanie transakcji...</div>;
+  const getFlagEmoji = (currencyCode) => {
+    const codePoints = currencyCode
+      .slice(0, 2)
+      .toUpperCase()
+      .split("")
+      .map((char) => 127397 + char.charCodeAt(0));
+    return String.fromCodePoint(...codePoints);
+  };
+
+  const renderSkeletons = () => (
+    <ul className="space-y-4">
+      {Array.from({ length: 5 }).map((_, index) => (
+        <li
+          key={index}
+          className="animate-pulse flex justify-between items-center bg-gray-200 rounded-lg p-4"
+        >
+          <div className="flex items-center gap-4">
+            <div className="w-8 h-8 bg-gray-300 rounded-full"></div>
+            <div>
+              <div className="h-4 bg-gray-300 rounded w-24 mb-1"></div>
+              <div className="h-3 bg-gray-300 rounded w-16"></div>
+            </div>
+          </div>
+          <div className="text-right">
+            <div className="h-4 bg-gray-300 rounded w-16 mb-1"></div>
+            <div className="h-3 bg-gray-300 rounded w-20"></div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
+
   if (error) return <div className="text-center text-red-500 p-4">{error}</div>;
 
   return (
     <>
       <ApplicationBar />
-      <div className="flex flex-col items-center p-4">
-        <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-md space-y-6">
-          <h1 className="text-2xl font-bold text-center">Moje transakcje</h1>
-          <div className="space-y-4">
-            {transactions.length === 0 ? (
+      <div className="bg-gray-100 mt-[200px] py-6 px-4">
+        <div className="flex flex-col items-center max-w-md mx-auto space-y-6">
+          <h1 className="text-2xl font-bold mb-4">Moje transakcje</h1>
+          <div className="bg-white shadow-lg rounded-2xl p-6 w-full">
+            {error && <div className="text-center text-red-500">{error}</div>}
+            {loading ? (
+              renderSkeletons()
+            ) : transactions.length === 0 ? (
               <div className="text-center text-gray-500">
                 Brak transakcji do wyświetlenia.
               </div>
             ) : (
-              transactions.map((transaction) => (
-                <div
-                  key={transaction.id}
-                  className="border-b border-gray-200 p-4 last:border-none flex justify-between items-center"
-                >
-                  <div>
-                    <p className="font-medium">{transaction.transactionType}</p>
-                    <p className="text-sm text-gray-500">
-                      {transaction.currencyCode}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-bold">
-                      {transaction.currencyValue} {transaction.currencyCode}
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      {format(
-                        new Date(transaction.dateTime),
-                        "yyyy-MM-dd HH:mm"
-                      )}
-                    </p>
-                  </div>
-                </div>
-              ))
+              <ul className="space-y-4">
+                {transactions.map((transaction) => (
+                  <li
+                    key={transaction.id}
+                    className="flex justify-between items-center bg-gray-50 shadow-sm rounded-lg p-4 hover:bg-gray-100 transition"
+                  >
+                    <div className="flex items-center gap-4">
+                      <span className="text-3xl">
+                        {getFlagEmoji(transaction.currencyCode)}
+                      </span>
+                      <div>
+                        <p
+                          className={`text-md rounded-md font-semibold px-1  ${
+                            transaction.transactionType === "DEPOSIT"
+                              ? "bg-green-100 text-green-600"
+                              : ""
+                          }`}
+                        >
+                          {transaction.transactionType}
+                        </p>
+                        <p className="text-sm  text-gray-500">
+                          {transaction.currencyCode}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-xl font-bold">
+                        {transaction.currencyValue} {transaction.currencyCode}
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        {format(
+                          new Date(transaction.dateTime),
+                          "yyyy-MM-dd HH:mm"
+                        )}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             )}
           </div>
         </div>
