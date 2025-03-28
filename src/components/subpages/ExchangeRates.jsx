@@ -10,8 +10,14 @@ export const ExchangeRates = () => {
 
   useEffect(() => {
     const fetchExchangeRates = async () => {
+      const jwt = localStorage.getItem("jwt");
+
       try {
-        const response = await api.get("/api/exchangerates");
+        const response = await api.get("/api/exchangerates", {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        });
         setExchangeRates(response.data);
       } catch (e) {
         toast.error("Błąd podczas pobierania kursów walut");
