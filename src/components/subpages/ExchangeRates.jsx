@@ -13,7 +13,7 @@ export const ExchangeRates = () => {
       const jwt = localStorage.getItem("jwt");
 
       try {
-        const response = await api.get("/api/exchangerates", {
+        const response = await api.get("/exchangerates", {
           headers: {
             Authorization: `Bearer ${jwt}`,
           },
