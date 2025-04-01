@@ -9,7 +9,7 @@ export const UserMenu = () => {
   const path = location.pathname;
 
   const handleMyAccountBtn = () => {
-    navigate("/my-account");
+    navigate("/dashboard");
   };
 
   const handleLogoutBtn = async () => {
