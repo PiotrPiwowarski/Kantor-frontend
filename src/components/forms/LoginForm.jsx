@@ -29,7 +29,7 @@ export const LoginForm = ({ setActivePage }) => {
       localStorage.setItem("jwt", response.data.token);
       localStorage.setItem("accountId", response.data.accountId);
       toast.success("Zalogowano pomyślnie!");
-      navigate("/dashboard");
+      navigate("/my-wallet");
     } catch (e) {
       setError("Błąd logowania");
       toast.error("Błąd logowania");
