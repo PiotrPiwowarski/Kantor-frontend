@@ -12,6 +12,7 @@ export const MyWallet = () => {
   const [error, setError] = useState("");
   const [selectedCurrency, setSelectedCurrency] = useState(null);
   const [specificLoading, setSpecificLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const getFlagEmoji = (currencyCode) => {
     const codePoints = currencyCode
@@ -53,17 +54,44 @@ export const MyWallet = () => {
         navigate("/");
       }
       try {
+        setLoading(true);
         const response = await api.get(`/currencies/${id}`, {
           headers: { Authorization: `Bearer ${jwt}` },
         });
         setCurrencies(response.data);
       } catch (e) {
         setError("Błąd pobierania walut");
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchCurrencies();
   }, [navigate]);
+
+  const renderSkeletons = () => {
+    return (
+      <ul className="space-y-4">
+        <li>
+          <ul className="space-y-4">
+            <li className="flex items-center justify-between bg-gray-200 rounded-lg p-4 animate-pulse">
+              <div className="flex items-center gap-4">
+                <div className="w-8 h-8 bg-gray-300 rounded-full"></div>
+                <div>
+                  <div className="h-4 bg-gray-300 rounded w-24 mb-1"></div>
+                  <div className="h-3 bg-gray-300 rounded w-16"></div>
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="h-4 bg-gray-300 rounded w-16 mb-1"></div>
+                <div className="h-3 bg-gray-300 rounded w-20"></div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    );
+  };
 
   return (
     <>
@@ -93,8 +121,8 @@ export const MyWallet = () => {
               />
             </div>
             {error && <p className="text-red-500 mb-4">{error}</p>}
-            {currencies.length === 0 ? (
-              <p className="text-gray-500">Nie masz żadnych walut w portfelu</p>
+            {loading ? (
+              renderSkeletons()
             ) : (
               <ul className="space-y-4">
                 {(selectedCurrency
@@ -102,39 +130,44 @@ export const MyWallet = () => {
                       (c) => c.currencyCode === selectedCurrency.value
                     )
                   : currencies
-                ).map((currency, index) => (
-                  <li
-                    key={index}
-                    className="flex items-center justify-between bg-gray-50 shadow-sm rounded-lg p-4 hover:bg-gray-100 transition"
-                  >
-                    <div className="flex items-center gap-4">
-                      <span className="text-3xl">
-                        <span role="img" aria-label={currency.currencyCode}>
-                          {getFlagEmoji(currency.currencyCode)}
+                ).length === 0 ? (
+                  <li className="text-gray-500">
+                    {selectedCurrency
+                      ? "Nie masz tej waluty w portfelu"
+                      : "Nie masz żadnych walut w portfelu"}
+                  </li>
+                ) : (
+                  (selectedCurrency
+                    ? currencies.filter(
+                        (c) => c.currencyCode === selectedCurrency.value
+                      )
+                    : currencies
+                  ).map((currency, index) => (
+                    <li
+                      key={index}
+                      className="flex items-center justify-between bg-gray-50 shadow-sm rounded-lg p-4 hover:bg-gray-100 transition"
+                    >
+                      <div className="flex items-center gap-4">
+                        <span className="text-3xl">
+                          <span role="img" aria-label={currency.currencyCode}>
+                            {getFlagEmoji(currency.currencyCode)}
+                          </span>
                         </span>
-                      </span>
-                      <div>
-                        <div className="text-lg font-semibold">
-                          {currency.currencyCode}
-                        </div>
-                        <div className="text-sm text-gray-500">
-                          {currency.currencyName || "Waluta"}
+                        <div>
+                          <div className="text-lg font-semibold">
+                            {currency.currencyCode}
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            {currency.currencyName || "Waluta"}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="text-xl font-bold text-right">
-                      {currency.currencyValue.toFixed(2)}
-                    </div>
-                  </li>
-                ))}
-                {selectedCurrency &&
-                  currencies.filter(
-                    (c) => c.currencyCode === selectedCurrency.value
-                  ).length === 0 && (
-                    <li className="text-gray-500">
-                      Nie masz tej waluty w portfelu
+                      <div className="text-xl font-bold text-right">
+                        {currency.currencyValue.toFixed(2)}
+                      </div>
                     </li>
-                  )}
+                  ))
+                )}
               </ul>
             )}
           </div>
