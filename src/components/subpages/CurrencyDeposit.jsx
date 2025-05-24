@@ -31,11 +31,35 @@ export const CurrencyDeposit = () => {
         });
 
         if (response.data && response.data[0].rates) {
-          const newRates = response.data[0].rates.map((rate) => ({
-            code: rate.code,
+          // Mapowanie kodów walut na kody państw ISO-3166 Alpha-2
+          const countryMap = {
+            PLN: "PL",
+            USD: "US",
+            EUR: "EU",
+            GBP: "GB",
+            CHF: "CH",
+            CAD: "CA",
+            AUD: "AU",
+            JPY: "JP",
+            HUF: "HU",
+            CZK: "CZ",
+            DKK: "DK",
+            NOK: "NO",
+            SEK: "SE",
+            XDR: "UN",
+          };
+          let newRates = response.data[0].rates.map((rate) => ({
+            code: countryMap[rate.code] || "UN",
             label: rate.code,
             value: rate.code,
           }));
+          // Dodaj PLN jeśli nie ma go w liście
+          if (!newRates.some((opt) => opt.value === "PLN")) {
+            newRates = [
+              { code: "PL", label: "PLN", value: "PLN" },
+              ...newRates,
+            ];
+          }
           setFetchedRates(newRates);
         }
       } catch (error) {
