@@ -24,7 +24,7 @@ export const CurrencySelector = ({ value, onChange, options }) => {
     <div className="relative w-full" ref={selectRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full text-left px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 flex items-center space-x-2"
+        className="w-full text-left px-6 py-4 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 flex items-center space-x-2"
       >
         {value && (
           <>

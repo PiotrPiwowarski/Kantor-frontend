@@ -26,8 +26,8 @@ export const AppMenu = () => {
       />
       <MenuButton
         label="Kursy walut"
-        onClick={() => navigate("/currency-rates")}
-        isActive={path === "/currency-rates"}
+        onClick={() => navigate("/exchange-rates")}
+        isActive={path === "/exchange-rates"}
       />
     </div>
   );
