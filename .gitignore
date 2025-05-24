@@ -11,7 +11,8 @@
 # production
 /build
 
-/.history
+/.history 
+
 
 # misc
 .DS_Store
