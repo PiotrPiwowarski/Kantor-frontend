@@ -2,9 +2,7 @@ import api from "../../lib/axiosInterceptor";
 import { ApplicationBar } from "../bars/ApplicationBar";
 import { AcceptButton } from "../buttons/Button";
 import { CurrencySelector } from "../ui/CurrencySelect.jsx/CurrencySelector";
-import styles from "./subpages.module.css";
-import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -18,6 +16,35 @@ export const CurrencyDeposit = () => {
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const jwt = localStorage.getItem("jwt");
+
+  const [fetchedRates, setFetchedRates] = useState([]);
+
+  useEffect(() => {
+    const fetchRates = async () => {
+      try {
+        const response = await api.get("/exchangerates", {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (response.data && response.data[0].rates) {
+          const newRates = response.data[0].rates.map((rate) => ({
+            code: rate.code,
+            label: rate.code,
+            value: rate.code,
+          }));
+          setFetchedRates(newRates);
+        }
+      } catch (error) {
+        console.error("Błąd podczas pobierania walut:", error);
+      }
+    };
+
+    fetchRates();
+  }, []);
 
   const handleDeposit = async () => {
     if (!amount || !selectedCurrency) {
@@ -32,7 +59,6 @@ export const CurrencyDeposit = () => {
     }
 
     const id = localStorage.getItem("accountId");
-    const jwt = localStorage.getItem("jwt");
 
     if (!id || !jwt) {
       navigate("/");
@@ -43,9 +69,9 @@ export const CurrencyDeposit = () => {
       await api.post(
         "/currencies/deposit",
         {
-          accountId: parseInt(id),
+          accountId: Number(id),
+          currencyValue: Number(parsedAmount),
           currencyCode: selectedCurrency.value,
-          currencyValue: parsedAmount,
         },
         {
           headers: {
@@ -74,6 +100,9 @@ export const CurrencyDeposit = () => {
     { code: "EU", label: "EUR", value: "EUR" },
     { code: "GB", label: "GBP", value: "GBP" },
   ];
+
+  const finalCurrencyOptions =
+    fetchedRates && fetchedRates.length > 0 ? fetchedRates : currencyOptions;
 
   return (
     <>
@@ -111,7 +140,7 @@ export const CurrencyDeposit = () => {
               <CurrencySelector
                 value={selectedCurrency || "Wybierz walutę"}
                 onChange={setSelectedCurrency}
-                options={currencyOptions}
+                options={finalCurrencyOptions}
               />
             </div>
 
