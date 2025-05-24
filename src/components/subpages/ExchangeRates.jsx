@@ -8,17 +8,25 @@ export const ExchangeRates = () => {
   const [exchangeRates, setExchangeRates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
 
   useEffect(() => {
     const fetchExchangeRates = async () => {
+      setLoading(true);
+      setError("");
       const jwt = localStorage.getItem("jwt");
-
       try {
-        const response = await api.get("/exchangerates", {
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-          },
-        });
+        let response;
+        if (selectedDate) {
+          response = await api.get(
+            `/exchangerates/archival?startDate=${selectedDate}&endDate=${selectedDate}`,
+            { headers: { Authorization: `Bearer ${jwt}` } }
+          );
+        } else {
+          response = await api.get("/exchangerates", {
+            headers: { Authorization: `Bearer ${jwt}` },
+          });
+        }
         const rates = response.data[0]?.rates || [];
         const enrichedRates = rates.map((rate) => ({
           ...rate,
@@ -32,9 +40,8 @@ export const ExchangeRates = () => {
         setLoading(false);
       }
     };
-
     fetchExchangeRates();
-  }, []);
+  }, [selectedDate]);
 
   // Mapowanie kodów walut na kody państw ISO-3166 Alpha-2
   const getCountryCode = (currencyCode) => {
@@ -76,6 +83,26 @@ export const ExchangeRates = () => {
       <div className="bg-gray-100 min-h-screen py-6 mt-20 px-4">
         <div className="flex flex-col items-center max-w-xl mx-auto space-y-6">
           <h1 className="text-2xl font-bold mb-4">Kursy walut</h1>
+          <div className="mb-4 flex flex-col items-center">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Wybierz datę (archiwalne kursy):
+            </label>
+            <input
+              type="date"
+              className="border rounded p-2"
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
+              max={new Date().toISOString().split("T")[0]}
+            />
+            {selectedDate && (
+              <button
+                className="mt-2 text-xs text-blue-600 hover:underline"
+                onClick={() => setSelectedDate("")}
+              >
+                Pokaż bieżące kursy
+              </button>
+            )}
+          </div>
           <div className="bg-white shadow-lg rounded-2xl p-6 w-full">
             {error && (
               <div className="text-center text-red-500 mb-4">{error}</div>
