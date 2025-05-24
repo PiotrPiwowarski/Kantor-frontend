@@ -6,7 +6,9 @@ import { useNavigate } from "react-router-dom";
 export const UserMenu = () => {
   const navigate = useNavigate();
 
-  const handleMyAccountBtn = () => {};
+  const handleMyAccountBtn = () => {
+    navigate("/dashboard");
+  };
 
   const handleLogoutBtn = async () => {
     const jwt = localStorage.getItem("jwt");
