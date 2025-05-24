@@ -69,9 +69,9 @@ export const CurrencyDeposit = () => {
       await api.post(
         "/currencies/deposit",
         {
-          accountId: parseInt(id),
+          accountId: Number(id),
+          currencyValue: Number(parsedAmount),
           currencyCode: selectedCurrency.value,
-          currencyValue: parsedAmount,
         },
         {
           headers: {
