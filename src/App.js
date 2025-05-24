@@ -15,7 +15,7 @@ function App() {
         <Route path="/my-wallet" element={<MyWallet />} />
         <Route path="/currency-deposit" element={<CurrencyDeposit />} />
         <Route path="/my-transactions" element={<MyTransactions />} />
-        <Route path="/currency-rates" element={<ExchangeRates />} />
+        <Route path="/exchange-rates" element={<ExchangeRates />} />
       </Routes>
     </Router>
   );

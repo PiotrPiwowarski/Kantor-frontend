@@ -44,7 +44,7 @@ export const CurrencyDeposit = () => {
         "/currencies/deposit",
         {
           accountId: parseInt(id),
-          currencyCode: selectedCurrency,
+          currencyCode: selectedCurrency.value,
           currencyValue: parsedAmount,
         },
         {
@@ -55,9 +55,8 @@ export const CurrencyDeposit = () => {
         }
       );
 
-      toast.success(`Wpłacono ${parsedAmount} ${selectedCurrency}`);
+      toast.success(`Wpłacono ${parsedAmount} ${selectedCurrency.value}`);
       setAmount("");
-      setSelectedCurrency("PLN");
       setError("");
 
       setTimeout(() => {
